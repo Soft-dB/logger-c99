@@ -12,6 +12,7 @@
 #include <stdarg.h>
 #include <stdbool.h>
 #include <time.h>
+#include <string.h>
 
 #define LOG_VERSION "0.1.0"
 
@@ -45,5 +46,8 @@ int log_add_callback(log_LogFn fn, void *udata, int level);
 int log_add_fp(FILE *fp, int level);
 
 void log_log(int level, const char *file, int line, const char *fmt, ...);
+
+void log_set_prefix(char *prefix);
+void log_unset_prefix(void);
 
 #endif

@@ -38,6 +38,9 @@ static struct {
   Callback callbacks[MAX_CALLBACKS];
 } L;
 
+#define PREFIX_LEN 64
+static int use_prefix = 0;
+static char log_prefix[PREFIX_LEN];
 
 static const char *level_strings[] = {
   "TRACE", "DEBUG", "INFO", "WARN", "ERROR", "FATAL"
@@ -165,4 +168,18 @@ void log_log(int level, const char *file, int line, const char *fmt, ...) {
   }
 
   unlock();
+}
+
+void
+log_set_prefix(char *prefix)
+{
+	use_prefix = 1;
+	strncpy(log_prefix, prefix, PREFIX_LEN);
+}
+
+void
+log_unset_prefix(void)
+{
+	use_prefix = 0;
+	memset(log_prefix, 0, PREFIX_LEN);
 }
